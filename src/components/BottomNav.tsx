@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Map, Search, Activity, User } from 'lucide-react';
+import { Home, Search, Activity, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useApp } from '@/context/AppContext';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -13,12 +14,13 @@ function cn(...inputs: ClassValue[]) {
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const { t } = useApp();
 
   const navItems = [
-    { label: 'MAP', icon: Map, path: '/map' },
-    { label: 'SEARCH', icon: Search, path: '/search' },
-    { label: 'ACTIVITY', icon: Activity, path: '/activity' },
-    { label: 'PROFILE', icon: User, path: '/profile' },
+    { label: t('home'), icon: Home, path: '/' },
+    { label: t('search'), icon: Search, path: '/search' },
+    { label: t('activity'), icon: Activity, path: '/activity' },
+    { label: t('profile'), icon: User, path: '/profile' },
   ];
 
   return (
@@ -40,7 +42,7 @@ export default function BottomNav() {
               <span className="absolute -top-1 w-12 h-12 bg-blue-50 rounded-full -z-10 animate-pulse-slow opacity-60"></span>
             )}
             <Icon className={cn("w-6 h-6", isActive && "stroke-[2.5px]")} />
-            <span className={cn("text-[10px] font-extrabold tracking-widest mt-0.5", isActive ? "opacity-100" : "opacity-60")}>
+            <span className={cn("text-[10px] font-extrabold tracking-widest mt-0.5 uppercase", isActive ? "opacity-100" : "opacity-60")}>
               {item.label}
             </span>
           </Link>

@@ -5,8 +5,17 @@
 }
 
 @layer base {
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
   body {
-    @apply bg-[#FAFAFA] text-[#111827] overflow-x-hidden;
+    background-color: #FAFAFA;
+    color: #111827;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -16,6 +25,9 @@
   }
   .animate-pulse-slow {
     animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .animate-dash {
+    animation: dash 20s linear infinite;
   }
   .animation-delay-2000 {
     animation-delay: 2s;
@@ -33,6 +45,9 @@
   .slide-in-from-bottom-5 {
     animation-name: slide-in-from-bottom-5;
   }
+  .slide-in-from-bottom-10 {
+    animation-name: slide-in-from-bottom-10;
+  }
 }
 
 @keyframes fade-in {
@@ -43,6 +58,17 @@
 @keyframes slide-in-from-bottom-5 {
   from { transform: translateY(1.25rem); }
   to { transform: translateY(0); }
+}
+
+@keyframes slide-in-from-bottom-10 {
+  from { transform: translateY(2.5rem); }
+  to { transform: translateY(0); }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
 }
 
 @keyframes blob {
