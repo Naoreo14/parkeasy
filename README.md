@@ -7,12 +7,13 @@ Drivers in urban areas who need quick and reliable parking solutions, including 
 - Feature 1: [GPS-based location detection: Automatically detects the user’s current location when the app opens.]
 - Feature 2: [Nearby parking spots map: Displays available parking spots around the user in real-time.]
 - Feature 3: [Spot details: Shows price, distance, type (disable,delivery…), free/paid status, and hours of operation.]
+- Feature 4: [Destination navigation: Enter a destination address and start turn-by-turn GPS navigation with nearby real-time parking info.]
 ### Should Have
-- Feature 4: [Navigation: Provides turn-by-turn directions to the selected adress.]
-- Feature 5: [Real-time updates: Users can see live availability using community reports.]
+- Feature 5: [Navigation: Provides turn-by-turn directions to the selected adress.]
+- Feature 6: [Real-time updates: Users can see live availability using community reports.]
 ### Could Have
-- Feature 6: [Payment integration: Pay for parking directly through the app.]
-- Feature 7: [Implement location: Address-based parking availability.]
+- Feature 7: [Payment integration: Pay for parking directly through the app.]
+- Feature 8: [Implement location: Address-based parking availability.]
 ## Data Model
 - **ParkingSpot**: id, name, location (latitude, longitude), price, type (disable,delivery…), hours, availability
 - **User**: id, name, email, payment_info, driver_license
