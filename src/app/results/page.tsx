@@ -17,52 +17,28 @@ function cn(...inputs: ClassValue[]) {
 const initialResults = [
   {
     id: 1,
-    name: 'Grand Central Terminal',
-    address: '89 E 42nd St, New York',
+    name: '582 Market St.',
+    address: 'DOWNTOWN ZONE A-4',
     distance: '0.2 km',
     price: 'Paid',
-    cost: '$12.95/hr',
+    cost: '$2.50/hr',
     type: 'Regular',
-    hours: 'Open: 08:00 - 22:00',
+    hours: 'Open: 24/7',
     available: true,
     rating: 4.8
   },
   {
     id: 2,
-    name: 'Mission District Zone',
-    address: 'Valencia St, San Francisco',
+    name: 'Grand Central Terminal',
+    address: '89 E 42nd St, New York',
     distance: '0.5 km',
-    price: 'Free',
-    cost: '$0.00',
-    type: 'Disabled',
-    hours: 'Open: 24/7',
+    price: 'Paid',
+    cost: '$12.95/hr',
+    type: 'Regular',
+    hours: 'Open: 08:00 - 22:00',
     available: true,
     rating: 4.5
   },
-  {
-    id: 3,
-    name: 'East Side Delivery Spot',
-    address: '2nd Ave & 50th St',
-    distance: '0.8 km',
-    price: 'Paid',
-    cost: '$8.50/hr',
-    type: 'Delivery',
-    hours: 'Open: 06:00 - 18:00',
-    available: false,
-    rating: 4.2
-  },
-  {
-    id: 4,
-    name: 'Park Avenue Plaza',
-    address: '55 E 52nd St',
-    distance: '1.1 km',
-    price: 'Paid',
-    cost: '$15.00/hr',
-    type: 'Regular',
-    hours: 'Open: 08:00 - 20:00',
-    available: true,
-    rating: 4.9
-  }
 ];
 
 export default function SearchResults() {
@@ -91,7 +67,7 @@ export default function SearchResults() {
         <div className="flex items-center justify-between mt-4">
           <div>
             <h1 className="text-3xl font-black text-slate-900 tracking-tight leading-none">Search Results</h1>
-            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mt-1">4 SPOTS NEARBY</p>
+            <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mt-1">2 SPOTS NEARBY</p>
           </div>
           <button className="w-12 h-12 bg-white rounded-2xl shadow-md border border-slate-100 flex items-center justify-center text-blue-600">
             <Filter className="w-6 h-6" />
@@ -102,7 +78,7 @@ export default function SearchResults() {
         <div className="flex flex-col gap-5">
           {results.map((spot) => (
             <Link 
-              href="/map" 
+              href="/spot-detail" 
               key={spot.id}
               className="bg-white rounded-[32px] p-5 shadow-xl shadow-slate-900/5 border border-slate-50 flex flex-col gap-4 active:scale-[0.98] transition-all group"
             >

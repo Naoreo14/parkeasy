@@ -8,6 +8,9 @@ import { AlertCircle, Clock, PlusCircle, StopCircle, CreditCard, Receipt, ArrowR
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -26,6 +29,13 @@ export default function ActivityPage() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const extendSession = () => {
+    setTimeLeft(prev => {
+      const newMin = prev.min + 15;
+      return { ...prev, min: newMin };
+    });
+  };
 
   return (
     <div className="flex flex-col h-full bg-[#f8fcfb] relative overflow-hidden font-sans">
@@ -57,20 +67,29 @@ export default function ActivityPage() {
           <div className="flex flex-col items-center">
             <span className="text-blue-400 font-black text-xs tracking-[0.3em] uppercase mb-4">{t('time_remaining')}</span>
             <div className="flex items-baseline gap-1">
-               <span className="text-6xl font-black text-[#0047AB] tracking-tighter tabular-nums">00:0{timeLeft.min}:</span>
+               <span className="text-6xl font-black text-[#0047AB] tracking-tighter tabular-nums">
+                 {Math.floor(timeLeft.min / 60).toString().padStart(2, '0')}:
+                 {(timeLeft.min % 60).toString().padStart(2, '0')}:
+               </span>
                <span className="text-6xl font-black text-[#0047AB]/40 tracking-tighter tabular-nums">{timeLeft.sec < 10 ? `0${timeLeft.sec}` : timeLeft.sec}</span>
             </div>
           </div>
 
           <div className="w-full flex flex-col gap-3">
-             <button className="w-full bg-[#0047AB] text-white py-5 rounded-[28px] font-black flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 active:scale-95 transition-all text-lg">
+             <button 
+               onClick={extendSession}
+               className="w-full bg-[#0047AB] text-white py-5 rounded-[28px] font-black flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 active:scale-95 transition-all text-lg"
+             >
                 <PlusCircle className="w-5 h-5" />
                 {t('extend_time')}
              </button>
-             <button className="w-full bg-slate-100 text-slate-500 py-5 rounded-[28px] font-black flex items-center justify-center gap-3 active:scale-95 transition-all text-lg">
+             <Link 
+               href="/session-ended"
+               className="w-full bg-slate-100 text-slate-500 py-5 rounded-[28px] font-black flex items-center justify-center gap-3 active:scale-95 transition-all text-lg text-center"
+             >
                 <StopCircle className="w-5 h-5" />
                 {t('end_session')}
-             </button>
+             </Link>
           </div>
         </div>
 
