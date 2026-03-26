@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, Map, Activity, User, Banknote, Navigation, Clock, ChevronRight, Accessibility } from 'lucide-react';
-import Image from 'next/image';
+import { Search, Banknote, Clock, ChevronRight, Accessibility } from 'lucide-react';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+import Link from 'next/link';
 
 export default function DestinationSearch() {
   const [radius, setRadius] = useState(800);
@@ -13,21 +15,10 @@ export default function DestinationSearch() {
       <div className="absolute top-20 left-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
       <div className="absolute top-40 right-0 w-64 h-64 bg-green-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
 
-      {/* Top Header */}
-      <header className="flex items-center justify-between px-6 pt-12 pb-4 relative z-10">
-        <div className="flex items-center gap-2">
-          <div className="text-blue-700 font-bold text-2xl flex items-center">
-            <span className="text-blue-600 mr-2">P</span>
-            ParkEasy
-          </div>
-        </div>
-        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm bg-gray-200">
-          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=b6e3f4" alt="User Avatar" className="w-full h-full object-cover" />
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
-      <main className="flex-1 px-6 pb-24 overflow-y-auto relative z-10 flex flex-col gap-6 mt-4">
+      <main className="flex-1 px-6 pb-28 overflow-y-auto relative z-10 flex flex-col gap-6 mt-4">
         
         {/* Title Section */}
         <div>
@@ -54,7 +45,7 @@ export default function DestinationSearch() {
             <span className="text-lg font-bold text-blue-700">{radius >= 1000 ? `${(radius/1000).toFixed(1)}KM` : `${radius}m`}</span>
           </div>
           
-          <div className="relative w-full h-2 rounded-full bg-slate-200/60 mb-2">
+          <div className="relative w-full h-2 rounded-full bg-white/60 mb-2">
             <div 
               className="absolute top-0 left-0 h-full rounded-full bg-blue-500/30" 
               style={{ width: `${((radius - 100) / 1900) * 100}%` }}
@@ -68,9 +59,9 @@ export default function DestinationSearch() {
               onChange={(e) => setRadius(Number(e.target.value))}
               className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
             />
-            {/* Custom slider handle look-alike - managed by native slider invisibly over it */}
+            {/* Custom slider handle */}
             <div 
-              className="absolute top-1/2 -mt-2 w-4 h-4 bg-white rounded-full shadow border border-slate-200 pointer-events-none"
+              className="absolute top-1/2 -mt-2 w-4 h-4 bg-white border-2 border-blue-500 rounded-full shadow-lg pointer-events-none transition-all"
               style={{ left: `calc(${((radius - 100) / 1900) * 100}% - 8px)` }}
             ></div>
           </div>
@@ -83,14 +74,18 @@ export default function DestinationSearch() {
 
         {/* Filters */}
         <div className="grid grid-cols-2 gap-4">
-          <button className="flex flex-col items-start p-5 rounded-3xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-sm hover:bg-white/80 transition-all text-left">
-            <Banknote className="w-6 h-6 text-blue-600 mb-2" />
+          <button className="flex flex-col items-start p-5 rounded-3xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-sm hover:bg-white/80 transition-all text-left group">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-2 group-hover:bg-blue-100 transition-colors">
+              <Banknote className="w-6 h-6 text-blue-600" />
+            </div>
             <span className="text-[10px] font-bold text-slate-500 tracking-wider uppercase mb-1">PRICE</span>
             <span className="text-lg font-bold text-slate-800">Paid</span>
           </button>
           
-          <button className="flex flex-col items-start p-5 rounded-3xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-sm hover:bg-white/80 transition-all text-left">
-            <Accessibility className="w-6 h-6 text-blue-600 mb-2" />
+          <button className="flex flex-col items-start p-5 rounded-3xl bg-white/60 backdrop-blur-sm border border-white/50 shadow-sm hover:bg-white/80 transition-all text-left group">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-2 group-hover:bg-blue-100 transition-colors">
+              <Accessibility className="w-6 h-6 text-blue-600" />
+            </div>
             <span className="text-[10px] font-bold text-slate-500 tracking-wider uppercase mb-1">TYPE</span>
             <span className="text-lg font-bold text-slate-800">Disabled</span>
           </button>
@@ -99,7 +94,7 @@ export default function DestinationSearch() {
         <div className="flex-1"></div>
 
         {/* Recent Searches */}
-        <div className="bg-white rounded-3xl p-2 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex items-center mb-2">
+        <div className="bg-white rounded-3xl p-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex items-center mb-2 active:scale-[0.98] transition-transform cursor-pointer">
           <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
             <Clock className="w-5 h-5 text-blue-600" />
           </div>
@@ -113,31 +108,13 @@ export default function DestinationSearch() {
         </div>
 
         {/* Show Results Button */}
-        <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold text-lg py-4 rounded-full shadow-lg shadow-blue-600/30 transition-all active:scale-[0.98]">
+        <Link href="/map" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-4 rounded-3xl shadow-xl shadow-blue-500/20 flex items-center justify-center transition-all active:scale-[0.98]">
           Show Results
-        </button>
+        </Link>
 
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 w-full bg-white border-t border-slate-100 flex justify-around items-center pt-3 pb-6 px-2 z-50 shadow-[0_-10px_40px_rgb(0,0,0,0.03)]">
-        <button className="flex flex-col items-center gap-1.5 p-2 text-slate-400 hover:text-slate-600 transition-colors">
-          <Map className="w-6 h-6" />
-          <span className="text-[10px] font-extrabold tracking-wider">MAP</span>
-        </button>
-        <button className="flex flex-col items-center gap-1.5 p-2 text-blue-600">
-          <Search className="w-6 h-6" strokeWidth={2.5} />
-          <span className="text-[10px] font-extrabold tracking-wider">SEARCH</span>
-        </button>
-        <button className="flex flex-col items-center gap-1.5 p-2 text-slate-400 hover:text-slate-600 transition-colors">
-          <Activity className="w-6 h-6" />
-          <span className="text-[10px] font-extrabold tracking-wider">ACTIVITY</span>
-        </button>
-        <button className="flex flex-col items-center gap-1.5 p-2 text-slate-400 hover:text-slate-600 transition-colors">
-          <User className="w-6 h-6" />
-          <span className="text-[10px] font-extrabold tracking-wider">PROFILE</span>
-        </button>
-      </nav>
+      <BottomNav />
 
     </div>
   );
